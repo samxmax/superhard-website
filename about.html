@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Gallery Cafe Restaurant</title>
+    <link rel="stylesheet" href="styleindex.css">
+</head>
+<body>
+    <div class="video-background">
+        <video autoplay muted loop id="video-background">
+            <source src="newanimated.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+    <div id="content-container">
+        <div class="title">
+            <h1><strong>The Gallery Cafe Restaurant</strong></h1>           
+        </div>
+        <div class="subtittle">
+            <h2>Feel your taste&#128076<br>
+            since 1988</h2>    
+        </div>
+       
+        <div class="image-description-container">
+            <div class="background-image">
+                <img src="resturant.jpg" alt="Restaurant image">
+            </div>
+            <div class="description">
+                <h3>About Us</h3>
+                <p>Welcome to The Gallery Cafe Restaurant
+                    Established in 1988, The Gallery Cafe Restaurant is a cherished culinary gem in the heart of the city. Our restaurant offers a unique blend of classic charm and contemporary elegance, creating an inviting atmosphere where every guest feels at home.
+                    
+                    At The Gallery Cafe, we pride ourselves on our rich heritage and commitment to excellence. Our menu is a celebration of diverse flavors, featuring a carefully curated selection of dishes crafted from the freshest local ingredients. Whether you’re craving a sumptuous breakfast, a leisurely lunch, or a romantic dinner, our extensive menu has something to delight every palate.
+                    
+                    Our decor is inspired by art and culture, transforming each dining experience into a visual and sensory feast. Walls adorned with local art and a warm, welcoming ambiance set the stage for memorable meals and special occasions.
+                    
+                    Since our inception, we’ve been dedicated to providing exceptional service and creating lasting memories for our guests. Our passionate team strives to make every visit extraordinary, ensuring that your time at The Gallery Cafe Restaurant is not just a meal, but a memorable experience.
+                    
+                    Join us at The Gallery Cafe Restaurant and discover why we’ve been a beloved destination for over three decades. Come savor our exquisite cuisine and enjoy the unique charm that has made us a local favorite since 1988.</p>
+            </div>
+            <div class="falling-foods">
+                <!-- Example food items -->
+                <img src="foods/burger.png" class="food-item" alt="burger">
+                <img src="foods/chicken.png" class="food-item" alt="chicken">
+                <img src="foods/pizza.png" class="food-item" alt="pizza">
+                <img src="foods/submarine.png" class="food-item" alt="submarine">
+                <img src="foods/bur.png" class="food-item" alt="bur">
+                <img src="foods/piz.png" class="food-item" alt="piz">
+            </div>
+            <button class="back-button" onclick="window.history.back();"><a href="index.html">Back to home </button>
+        </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const container = document.querySelector('.falling-foods');
+                const foodImages = ['burger.png', 'chicken.png', 'pizza.png','submarine.png','pizza.png','bur.png','piz.png'];
+                
+        
+                for (let i = 0; i < numberOfFoods; i++) {
+                    const food = document.createElement('img');
+                    food.src = `images/${foodImages[Math.floor(Math.random() * foodImages.length)]}`;
+                    food.classList.add('food-item');
+                    container.appendChild(food);
+                }
+            });
+        </script>
+</body>
+</html>

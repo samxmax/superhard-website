@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery Cafe Restaurant</title>
+    <link rel="stylesheet" href="styleindex.css">
+    <style>
+        /* Add these styles to your existing CSS */
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+        #video-background {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        #content-container {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            color: white;
+        }
+        .choiceslogin-container {
+            margin-top: 20px;
+        }
+        .choice {
+            display: inline-block;
+            position: relative;
+        }
+        .choice-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            text-align: center;
+            padding: 10px;
+            display: none;
+        }
+        .choice:hover .choice-overlay {
+            display: block;
+        }
+      
+        .popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            overflow: hidden;
+        }
+        .popup-overlay.active {
+            display: block;
+        }
+        .popup {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            width: 300px;
+            z-index: 1001;
+        }
+        .popup input {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        .popup button {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="video-background">
+        <video autoplay muted loop id="video-background">
+            <source src="newanimated.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+    <div id="content-container">
+        <div class="title">
+            <h1><strong>The Gallery Cafe Restaurant</strong></h1>           
+        </div>
+        <div class="subtittle">
+            <h2>Feel your taste&#128076<br>since 1988</h2>    
+        </div>
+        <br><br>
+        <div class="choiceslogin-container">
+            <a href="#" class="choice" id="remove-table">
+                <img src="functions img/removed.jpg" alt="Remove Table">
+                <div class="choice-overlay">Remove Table</div>
+            </a>
+            <button class="back-button" onclick="window.history.back();"><a href="adminlog.html">Back to home</a></button>
+        </div>
+    </div>
+
+    <!-- Popup Notification -->
+    <div id="popup-overlay" class="popup-overlay">
+        <div id="popup" class="popup">
+            <h2>Remove Table</h2>
+            <input type="text" id="table_id" placeholder="Table ID">
+            <button id="remove-button">Remove</button>
+            <button id="close-button">Close</button>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('remove-table').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.body.classList.add('blur');
+            document.getElementById('popup-overlay').classList.add('active');
+        });
+
+        document.getElementById('close-button').addEventListener('click', function() {
+            document.body.classList.remove('blur');
+            document.getElementById('popup-overlay').classList.remove('active');
+        });
+
+        document.getElementById('remove-button').addEventListener('click', function() {
+            const tableId = document.getElementById('table_id').value;
+
+            if (tableId) {
+                const xhr = new XMLHttpRequest();
+                xhr.open('POST', 'remove_table.php', true);
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === 4) {
+                        if (xhr.status === 200) {
+                            alert(xhr.responseText);
+                            document.body.classList.remove('blur');
+                            document.getElementById('popup-overlay').classList.remove('active');
+                            document.getElementById('table_id').value = ''; // Clear input field
+                        } else {
+                            alert("Error: " + xhr.statusText);
+                        }
+                    }
+                };
+                xhr.send(`table_id=${encodeURIComponent(tableId)}`);
+            } else {
+                alert('Please enter a Table ID.');
+            }
+        });
+    </script>
+</body>
+</html>

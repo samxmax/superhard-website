@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Gallery Cafe Restaurant</title>
+    <link rel="stylesheet" href="styleindex.css">
+    <style>
+        .choice {
+            display: inline-block;
+            width: 20%; /* Adjust the width as needed */
+            text-align: center;
+            margin: 10px; /* Adjust spacing between choices */
+            background-color: #f0f0f0; /* Background color for fallback */
+            border: 1px solid #ccc; /* Border for visual clarity */
+            padding: 20px; /* Padding inside each choice */
+            box-sizing: border-box; /* Ensure padding doesn't affect width */
+            text-decoration: none; /* Remove default underline on links */
+            color: #333; /* Text color */
+        }
+        .choice img {
+            width: 100%; /* Make the image fill its container */
+            height: auto; /* Maintain aspect ratio */
+            display: block; /* Prevent any spacing issues */
+        }
+        </style>
+</head>
+<body>
+    <div class="video-background">
+        <video autoplay muted loop id="video-background">
+            <source src="newanimated.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+    <div id="content-container">
+        <div class="title">
+            <h1><strong>The Gallery Cafe Restaurant</strong></h1>           
+        </div>
+        <div class="subtittle">
+            <h2>Feel your taste&#128076<br>
+            since 1988</h2>    
+        </div>
+        <h2>Manage Options</h2>
+
+        <br><br>
+        <div class="choiceslogin-container">
+            <a href="staff.html" class="choice">
+                <img src="userlogin/staff.jpg" alt="Choice 3">
+                <div class="choice-overlay">Staff Registration</div>
+            </a>
+        
+            <a href="addfood.html" class="choice">
+                <img src="functions img/add foods.jpeg" alt="Choice 4">
+                <div class="choice-overlay">Add food items</div>
+            </a>
+
+            <a href="removefood.html" class="choice">
+                <img src="functions img/remove img.jpg" alt="Choice 5">
+                <div class="choice-overlay">Remove food items</div>
+            </a>
+
+            <a href="managetable.html" class="choice">
+                <img src="functions img/manage tables.jpg" alt="Choice 6">
+                <div class="choice-overlay">Manage Tables</div>
+            </a>
+
+            <a href="removetable.html" class="choice">
+                <img src="functions img/removed.jpg" alt="Choice 7">
+                <div class="choice-overlay">Remove Table</div>
+            </a>
+
+            <a href="manageevent.html" class="choice">
+                <img src="functions img/manage special.jpg" alt="Choice 7">
+                <div class="choice-overlay">Manage Special Events</div>
+            </a>
+
+            <a href="removeevent.html" class="choice">
+                <img src="functions img/events.jpg" alt="Choice 7">
+                <div class="choice-overlay">Remove Event</div>
+            </a>
+
+            <a href="removereser.html" class="choice">
+                <img src="functions img/reservations.jpg" alt="Choice 7">
+                <div class="choice-overlay">Remove Reservations</div>
+            </a>
+
+            <a href="removeorder.html" class="choice">
+                <img src="functions img/meals.jpg" alt="Choice 7">
+                <div class="choice-overlay">Remove Orders</div>
+            </a>
+
+            <a href="removeuser.html" class="choice">
+                <img src="functions img/remove user.png" alt="Choice 7">
+                <div class="choice-overlay">Remove User</div>
+            </a>
+
+            <a href="removestaff.html" class="choice">
+                <img src="functions img/remove staff.png" alt="Choice 7">
+                <div class="choice-overlay">Remove Staff Details</div>
+            </a>
+        </div>
+        <button class="back-button" onclick="window.history.back();"><a href="index.html">Back to home </button>
+        
+</body>
+</html>

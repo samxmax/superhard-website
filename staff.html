@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Gallery Cafe Restaurant</title>
+    <link rel="stylesheet" href="styleindex.css">
+    <style>
+         /* Add these styles to your existing CSS */
+         .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+        #video-background {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* Styling for the modal */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0,0,0,0.5); /* Black w/ opacity */
+        }
+        
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto; /* 15% from the top and centered */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%; /* Could be more or less, depending on screen size */
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+        }
+        
+        /* Close button for the modal */
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style> 
+</head>
+<body>
+    <div class="video-background">
+        <video autoplay muted loop id="video-background">
+            <source src="newanimated.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+    <div id="content-container">
+        <div class="title">
+            <h1><strong>The Gallery Cafe Restaurant</strong></h1>           
+        </div>
+        <div class="subtittle">
+            <h2>Feel your taste&#128076<br>
+            since 1988</h2>    
+        </div>
+        <br>
+        <div id="login head">
+            <div class="logintittle">
+                <h1>Registration Process</h1>
+                <br><br>
+            </div>
+            <div class="choiceslogin-container">
+                <button class="choice" onclick="openModal()">Staff Setup</button>
+                
+            </div>
+        </div>
+         <!-- The Modal -->
+    <div id="myModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Staff Member Details</h2>
+            <form id="staffForm">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required><br><br>
+                <label for="position">Position:</label>
+                <input type="text" id="position" name="position" required><br><br>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required><br><br>
+                <button type="button" onclick="saveStaff()">Submit</button>
+                <button type="reset">Reset</button>
+                
+            </form>
+            
+        </div>
+    </div>
+    <button class="back-button" onclick="window.history.back();"><a href="index.html">Back to home </button>
+     
+    <script>
+        function openModal() {
+            var modal = document.getElementById("myModal");
+            modal.style.display = "block";
+        }
+
+        function closeModal() {
+            var modal = document.getElementById("myModal");
+            modal.style.display = "none";
+        }
+
+        function saveStaff() {
+            var name = document.getElementById("name").value;
+            var position = document.getElementById("position").value;
+            var password = document.getElementById("password").value;
+
+            // Create an AJAX request
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "save_staff.php", true);
+            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    alert(xhr.responseText); // Show response from the PHP script
+                    closeModal(); // Close modal after successful submission
+                }
+            };
+            // Send the data
+            xhr.send("name=" + name + "&position=" + position + "&password=" + password);
+        }
+        function goToIndex() {
+            window.location.href = "index.html"; // Navigate to index.html
+        }
+    </script>
+    
+</body>
+</html>

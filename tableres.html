@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Gallery Cafe Restaurant</title>
+    <link rel="stylesheet" href="styleindex.css">
+    <style>
+        /* Additional styles specific to choices */
+        .choices {
+            text-align: center; /* Center align the choices container */
+            padding: 20px 0; /* Add padding above and below the choices */
+        }
+        .choice {
+            display: inline-block;
+            width: 20%; /* Adjust the width as needed */
+            text-align: center;
+            margin: 10px; /* Adjust spacing between choices */
+            background-color: #f0f0f0; /* Background color for fallback */
+            border: 1px solid #ccc; /* Border for visual clarity */
+            padding: 20px; /* Padding inside each choice */
+            box-sizing: border-box; /* Ensure padding doesn't affect width */
+            text-decoration: none; /* Remove default underline on links */
+            color: #333; /* Text color */
+        }
+        .choice img {
+            width: 100%; /* Make the image fill its container */
+            height: auto; /* Maintain aspect ratio */
+            display: block; /* Prevent any spacing issues */
+        }
+        /* Popup styles */
+        .popup {
+            display: none;
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            border: 2px solid #ccc;
+            padding: 20px;
+            z-index: 1000;
+        }
+        .popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+        .popup .message {
+            color: red;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .popup button {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="video-background">
+        <video autoplay muted loop id="video-background">
+            <source src="newanimated.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+    <div id="content-container">
+        <div class="title">
+            <h1><strong>The Gallery Cafe Restaurant</strong></h1>           
+        </div>
+        <div class="subtittle">
+            <h2>Feel your taste&#128076<br>since 1988</h2>    
+        </div>
+
+        <div class="choices" id="choices-container">
+            <div class="choice">
+                <a href="#" onclick="showPopup(); return false;">
+                    <img src="functions img/reseved.jpg" alt="Choice 1">
+                    <div class="choice-overlay">Add to reservation</div>
+                </a>
+            </div>
+            <button class="back-button" onclick="window.history.back();"><a href="reserv.html">Back to home</a></button>
+        </div>
+    </div>
+
+    <!-- Popup Form -->
+    <div class="popup-overlay" id="popup-overlay"></div>
+    <div class="popup" id="popup-form">
+        <div class="message">Please update the reservation in our system before the reservation time if you want to cancel the reservation!</div>
+        <h2>Update Reservation</h2>
+        <form id="reservation-form">
+            <label for="table_id">Table ID:</label>
+            <input type="number" id="table_id" name="table_id" required><br><br>
+            <label for="datetime">Date and Time:</label>
+            <input type="datetime-local" id="datetime" name="datetime" required><br><br>
+            <button type="button" onclick="updateReservation('reserved')">Reserved</button>
+            <button type="button" onclick="updateReservation('cancel reserved')">Cancel Reserved</button>
+        </form>
+        <button onclick="hidePopup()">Close</button>
+    </div>
+
+    <script>
+        function showPopup() {
+            document.getElementById('popup-overlay').style.display = 'block';
+            document.getElementById('popup-form').style.display = 'block';
+        }
+
+        function hidePopup() {
+            document.getElementById('popup-overlay').style.display = 'none';
+            document.getElementById('popup-form').style.display = 'none';
+        }
+
+        function updateReservation(situation) {
+            const tableId = document.getElementById('table_id').value;
+            const datetime = document.getElementById('datetime').value;
+
+            if (!tableId || !datetime) {
+                alert('Please fill in all fields.');
+                return;
+            }
+
+            // Convert datetime-local format to MySQL DATETIME format
+            const formattedDateTime = datetime.replace('T', ' ');
+
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', 'update_reservation.php', true);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    alert('Reservation updated successfully.');
+                    hidePopup();
+                } else {
+                    alert('An error occurred.');
+                }
+            };
+            xhr.send(`table_id=${tableId}&situation=${situation}&datetime=${formattedDateTime}`);
+        }
+    </script>
+</body>
+</html>

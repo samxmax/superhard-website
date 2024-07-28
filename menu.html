@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Gallery Cafe Restaurant</title>
+    <link rel="stylesheet" href="styleindex.css">
+    <style>
+        /* Additional styles specific to choices */
+        .choices {
+            text-align: center; /* Center align the choices container */
+            padding: 20px 0; /* Add padding above and below the choices */
+        }
+        .choice {
+            display: inline-block;
+            width: 20%; /* Adjust the width as needed */
+            text-align: center;
+            margin: 10px; /* Adjust spacing between choices */
+            background-color: #f0f0f0; /* Background color for fallback */
+            border: 1px solid #ccc; /* Border for visual clarity */
+            padding: 20px; /* Padding inside each choice */
+            box-sizing: border-box; /* Ensure padding doesn't affect width */
+            text-decoration: none; /* Remove default underline on links */
+            color: #333; /* Text color */
+        }
+        .choice img {
+            width: 100%; /* Make the image fill its container */
+            height: auto; /* Maintain aspect ratio */
+            display: block; /* Prevent any spacing issues */
+        }
+        /* Modal styles */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0, 0, 0, 0.6); /* Black background with opacity */
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto; /* 15% from the top and centered */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 25%; /* Could be more or less, depending on screen size */
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        /* Additional blur effect */
+        .blur {
+            filter: blur(5px);
+        }
+    </style>
+</head>
+<body>
+    <div class="video-background">
+        <video autoplay muted loop id="video-background">
+            <source src="newanimated.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+    <div id="content-container">
+        <div class="title">
+            <h1><strong>The Gallery Cafe Restaurant</strong></h1>           
+        </div>
+        <div class="subtittle">
+            <h2>Feel your taste&#128076<br>
+            since 1988</h2>    
+        </div>
+        <div class="choices">
+            <div class="choice" id="show-menu">
+                <a href="#">
+                    <img src="functions img/menu.png" alt="Choice 1">
+                    <div class="choice-overlay">Show the menu</div>
+                </a>
+            </div>
+            <button class="back-button" onclick="window.history.back();"><a href="regilog.html">Back to home</a></button>
+        </div>
+    </div>
+
+    <!-- Modal structure -->
+    <div id="menuModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Menu</h2>
+            <table id="menuTable" border="1">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Food Name</th>
+                        <th>Food Type</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Menu items will be populated here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        // Get modal elements
+        var modal = document.getElementById("menuModal");
+        var btn = document.getElementById("show-menu");
+        var span = document.getElementsByClassName("close")[0];
+        var menuTable = document.getElementById("menuTable").getElementsByTagName('tbody')[0];
+
+        // When the user clicks on the button, open the modal 
+        btn.onclick = function() {
+            modal.style.display = "block";
+            document.getElementById('content-container').classList.add('blur');
+            // Fetch and display the menu data
+            fetch('fetch_menu.php')
+                .then(response => response.json())
+                .then(data => {
+                    data.forEach(item => {
+                        var row = menuTable.insertRow();
+                        row.insertCell(0).textContent = item.id;
+                        row.insertCell(1).textContent = item.food_name;
+                        row.insertCell(2).textContent = item.food_type;
+                        row.insertCell(3).textContent = item.price;
+                    });
+                })
+                .catch(error => console.error('Error fetching menu data:', error));
+        }
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function() {
+            modal.style.display = "none";
+            document.getElementById('content-container').classList.remove('blur');
+            menuTable.innerHTML = ''; // Clear the table content
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+                document.getElementById('content-container').classList.remove('blur');
+                menuTable.innerHTML = ''; // Clear the table content
+            }
+        }
+    </script>
+</body>
+</html>

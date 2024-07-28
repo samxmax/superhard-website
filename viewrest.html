@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Gallery Cafe Restaurant</title>
+    <link rel="stylesheet" href="styleindex.css">
+    <style>
+        /* General styles */
+        .gallery-section {
+            margin: 20px;
+        }
+        .gallery-section h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .gallery-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .gallery-item {
+            margin: 10px;
+            position: relative;
+        }
+        .gallery-item img {
+            max-width: 200px;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+        .gallery-item img:hover {
+            transform: translateY(-10px);
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            overflow: hidden; /* Ensure the modal itself does not scroll */
+        }
+        .modal-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 80%;
+            overflow: auto; /* Enable scrolling within the modal content */
+        }
+        .modal-content img {
+            max-width: 100%;
+            height: auto;
+        }
+        .modal-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 20px;
+            z-index: 1010; /* Ensure close button is on top */
+        }
+        .blurred-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.8);
+            filter: blur(5px);
+            z-index: 500;
+            display: none; /* Initially hidden */
+        }
+    </style>
+</head>
+<body>
+    <div class="video-background">
+        <video autoplay muted loop id="video-background">
+            <source src="newanimated.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+    <div id="content-container">
+        <div class="title">
+            <h1><strong>The Gallery Cafe Restaurant</strong></h1>
+        </div>
+        <div class="subtittle">
+            <h2>Feel your taste&#128076<br>since 1988</h2>
+        </div>
+        <button class="back-button" onclick="window.history.back();"><a href="index.html">Back to home</a></button>
+
+        <!-- Parking Section -->
+        <div class="gallery-section">
+            <h2>Parking</h2>
+            <div class="gallery-container" id="parking-gallery">
+                <div class="gallery-item">
+                    <img src="view/parking1.jpg" alt="Parking 1" onclick="openModal('view/parking1.jpg')">
+                </div>
+                <div class="gallery-item">
+                    <img src="view/parkin 2.jpeg" alt="Parking 2" onclick="openModal('view/parkin 2.jpeg')">
+                </div>
+                <div class="gallery-item">
+                    <img src="view/parking 3.jpg" alt="Parking 3" onclick="openModal('view/parking 3.jpg')">
+                </div>
+                <div class="gallery-item">
+                    <img src="view/parking 4.jpg" alt="Parking 4" onclick="openModal('view/parking 4.jpg')">
+                </div>
+                <div class="gallery-item">
+                    <img src="view/parking 5.jpg" alt="Parking 5" onclick="openModal('view/parking 5.jpg')">
+                </div>
+            </div>
+        </div>
+
+        <!-- Inside the Restaurant Section -->
+        <div class="gallery-section">
+            <h2>Inside the Restaurant</h2>
+            <div class="gallery-container" id="restaurant-gallery">
+                <div class="gallery-item">
+                    <img src="view/inside.jpg" alt="Restaurant 1" onclick="openModal('view/inside.jpg')">
+                </div>
+                <div class="gallery-item">
+                    <img src="view/inside 3.jpg" alt="Restaurant 2" onclick="openModal('view/inside 3.jpg')">
+                </div>
+                <div class="gallery-item">
+                    <img src="view/inside 4.jpg" alt="Restaurant 3" onclick="openModal('view/inside 4.jpg')">
+                </div>
+                <div class="gallery-item">
+                    <img src="view/inside 5.jpg" alt="Restaurant 4" onclick="openModal('view/inside 5.jpg')">
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal for Enlarged Image -->
+        <div class="modal" id="image-modal">
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+            <div class="modal-content">
+                <img id="modal-image" src="" alt="Enlarged Image">
+            </div>
+        </div>
+    </div>
+
+    <!-- Blurred Background Overlay -->
+    <div class="blurred-background" id="blurred-background"></div>
+
+    <script>
+        function openModal(imageSrc) {
+            document.getElementById('modal-image').src = imageSrc;
+            document.getElementById('image-modal').style.display = 'flex';
+            document.getElementById('blurred-background').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('image-modal').style.display = 'none';
+            document.getElementById('blurred-background').style.display = 'none';
+        }
+    </script>
+</body>
+</html>

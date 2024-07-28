@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Gallery Cafe Restaurant</title>
+    <link rel="stylesheet" href="styleindex.css">
+    <style>
+        /* Inline style for button to set background image and font size */
+        .choice {
+            background-image: url('https://www.google.com/url?sa=i&url=https%3A%2F%2Fstock.adobe.com%2Fimages%2Fwhite-admin-vector-icon-on-black-background-modern-flat-admin-from-strategy-concept-vector-sign-symbol-can-be-use-for-web-mobile-and-logo%2F276695760&psig=AOvVaw0YGBfSmo639VfgqIbCQF0Y&ust=1721927850738000&source=images&cd=vfe&opi=89978449&ved=0CBAQjRxqFwoTCPCQ5I-YwIcDFQAAAAAdAAAAABAE'); /* Replace with your background image URL */
+            background-size: cover;
+            background-position: center;
+            color: black;
+            border: none;
+            padding: 15px 30px;
+            font-size: 24px; /* Larger font size */
+            font-weight: bold;
+            cursor: pointer;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8); /* Optional text shadow */
+        }
+    </style>
+
+</head>
+<body>
+    <div class="video-background">
+        <video autoplay muted loop id="video-background">
+            <source src="newanimated.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+    <div id="content-container">
+        <div class="title">
+            <h1><strong>The Gallery Cafe Restaurant</strong></h1>           
+        </div>
+        <div class="subtittle">
+            <h2>Feel your taste&#128076<br>
+            since 1988</h2>    
+        </div>
+        <br>
+        <div id="login head">
+            <div class="logintittle">
+                <h>Registration Process</h>
+                <br><br>
+            </div>
+            <div class="choiceslogin-container">
+                <button class="choice" onclick="setupAdmin()">Admin Setup</button>
+            </div>
+        </div>
+        <button class="back-button" onclick="window.history.back();">Back to home</button>
+    </div>
+    
+
+    <script>
+        function setupAdmin() {
+    // Display a popup or modal to get admin username and password
+    var adminUsername = prompt("Enter admin username:");
+    var adminPassword = prompt("Enter admin password:");
+
+    // Send admin username and password to backend for processing
+    fetch('setupAdmin.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            username: adminUsername,
+            password: adminPassword
+        })
+    })
+    .then(response => response.text())
+    .then(data => {
+        alert(data); // Display response message
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}
+
+    </script>
+</body>
+</html>
